@@ -33,7 +33,7 @@ public class AudioSpectrum : MonoBehaviour
         brass = 0f;
 
         // 2~10 : percussion
-        for (int i = 2; i < 10; i++)
+        for (int i = 2; i < 20; i++)
         {
             percussion += samples[i];
         }

@@ -11,30 +11,62 @@ public class AudioSpectrumPlot : MonoBehaviour
     [Range(1f, 100f)]
     public float scale = 10;
 
+    //capping the plot
+    [Range(0f, 20000f)]
+    public float maxFrequency = 5000f;
+
     // frequency bins are intervals between samples in frequency domain
     GameObject[] sampleBin = new GameObject[AudioSpectrum.FFTSIZE];
+    int maxBin;
+
+    float timer = 0f;
 
     void Start()
     {
         // For every frequency bin
-        for (int i = 0; i < sampleBin.Length; i++)
+
+        int sampleRate = AudioSettings.outputSampleRate;
+        maxBin = Mathf.Clamp(
+            Mathf.RoundToInt((maxFrequency / sampleRate) * AudioSpectrum.FFTSIZE),
+            0,
+            AudioSpectrum.FFTSIZE - 1
+        );
+
+        for (int i = 0; i < maxBin; i++)
         {   // Create GO and init position
             sampleBin[i] = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            sampleBin[i].transform.position = new Vector3(i * 0.01f - 5, 0, 0);
+            sampleBin[i].transform.position = new Vector3(i * 0.05f - 5, 0, 0);
             sampleBin[i].transform.Rotate(90, 0, 0);
             //sampleBin[i].transform.Rotate(Random.Range(-180f, 180f), Random.Range(-180f, 180f), Random.Range(-180f, 180f));
         }
     }
     void Update()
     {
-        for (int i = 0; i < sampleBin.Length; i++)
+        timer += Time.deltaTime;
+        for (int i = 0; i < maxBin; i++)
         {
             if (sampleBin != null)
             {
                 sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, 0.1f);
                 //sampleBin[i].GetComponent<Renderer>().material.color = new Color(0.3f + (float)i / 100f, 0.1f + i / 30f, 1+ i / 500f);
-                Color color = Color.HSVToRGB(Mathf.Abs(0.0f + (float)i / 1000f), 0.7f + i / 30f, 1 + i / 500f); // Full saturation and brightness
-                sampleBin[i].GetComponent<Renderer>().material.color = color;
+                Color color;
+                if(timer < 5f)
+                {
+                    color = Color.HSVToRGB(Mathf.Abs(0.0f + (float)i / 1000f), 0.7f + i / 30f, 1 + i / 500f); // Full saturation and brightness
+                    sampleBin[i].GetComponent<Renderer>().material.color = color;
+                }
+               
+                
+                else if (timer > 5f)
+                {
+                    color = Color.HSVToRGB(Mathf.Abs(0.0f + (float)i / 1000f), 0, 1 + i / 500f); // No saturation, full brightness (white)
+                    sampleBin[i].GetComponent<Renderer>().material.color = color;
+                }
+               
+                if (timer == (double)85.368)
+                {
+                    timer = 0f;
+                }
 
 
                 //sampleBin[i].transform.position = new Vector3(scale * Mathf.Sin((float)i / 100f) + AudioSpectrum.samples[i] * scale * scale, 0, scale * Mathf.Cos((float)i / 100f) + AudioSpectrum.samples[i] * scale * scale);
