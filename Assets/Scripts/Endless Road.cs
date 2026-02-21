@@ -10,7 +10,7 @@ public class EndlessRoad : MonoBehaviour
     WaitForSeconds waitFor100ms = new WaitForSeconds(0.1f);
 
     Transform carTransform;
-    const float sectionLength = 20;
+    const float sectionLength = 10;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
