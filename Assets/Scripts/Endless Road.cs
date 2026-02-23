@@ -11,7 +11,6 @@ public class EndlessRoad : MonoBehaviour
 
     Transform carTransform;
     const float sectionLength = 10;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         carTransform = GameObject.FindGameObjectWithTag("car").transform;
@@ -87,12 +86,5 @@ public class EndlessRoad : MonoBehaviour
         }
 
         return allSections[randIndex];
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
