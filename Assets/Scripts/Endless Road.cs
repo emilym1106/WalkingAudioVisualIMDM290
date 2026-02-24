@@ -165,15 +165,15 @@ public class EndlessRoad : MonoBehaviour
             //position walkers in front of the caar
             Vector3 currentPositionCar = GameObject.FindGameObjectWithTag("car").transform.position;
             Vector3 currentPosition = walker.transform.position;
-            walker.transform.position = new Vector3(currentPosition.x, currentPosition.y, currentPositionCar.z+10);
+            walker.transform.position = new Vector3(currentPosition.x, currentPosition.y, currentPositionCar.z+9);
             Vector3 currentPosition1 = walker1.transform.position;
             walker1.transform.position = new Vector3(currentPosition1.x, currentPosition1.y, currentPositionCar.z+10);
             Vector3 currentPosition2 = walker2.transform.position;
-            walker2.transform.position = new Vector3(currentPosition2.x, currentPosition2.y, currentPositionCar.z+10);
+            walker2.transform.position = new Vector3(currentPosition2.x, currentPosition2.y, currentPositionCar.z+7);
             Vector3 currentPosition3 = walker3.transform.position;
-            walker3.transform.position = new Vector3(currentPosition3.x, currentPosition3.y, currentPositionCar.z+10);
+            walker3.transform.position = new Vector3(currentPosition3.x, currentPosition3.y, currentPositionCar.z+14);
             Vector3 currentPosition4 = walker4.transform.position;
-            walker4.transform.position = new Vector3(currentPosition4.x, currentPosition4.y, currentPositionCar.z+10);
+            walker4.transform.position = new Vector3(currentPosition4.x, currentPosition4.y, currentPositionCar.z+12);
             //make walkers visible
             walker.GetComponent<Renderer>().enabled = true;
             walker1.GetComponent<Renderer>().enabled = true;
