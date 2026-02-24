@@ -111,6 +111,12 @@ public class EndlessRoad : MonoBehaviour
     //updating buildings
     void Update()
     {
+        //walkers
+        GameObject walker = GameObject.Find("walker");
+         GameObject walker1 = GameObject.Find("walker1");
+         GameObject walker2 = GameObject.Find("walker2");
+         GameObject walker3 = GameObject.Find("walker3");
+         GameObject walker4 = GameObject.Find("walker4");
         Debug.Log(audioSource.time);
         if (audioSource.time >= pauseAtTime && audioSource.time <= 71)
         {
@@ -121,6 +127,12 @@ public class EndlessRoad : MonoBehaviour
         }
         
         if (!isPaused) {
+            //make walkers invisible
+            walker.GetComponent<Renderer>().enabled = false;
+            walker1.GetComponent<Renderer>().enabled = false;
+            walker2.GetComponent<Renderer>().enabled = false;
+            walker3.GetComponent<Renderer>().enabled = false;
+            walker4.GetComponent<Renderer>().enabled = false;
             carTransform.Translate(Vector3.forward * moveSpeed * Time.deltaTime); //move car forward
             audioBarTransform.position = new Vector3(carTransform.position.x - 3.5f, carTransform.position.y + 0.1f, carTransform.position.z + 7); //move audio with cars
 
@@ -148,6 +160,26 @@ public class EndlessRoad : MonoBehaviour
             }
 
             RecycleBuildings();
+        }else
+        {
+            //position walkers in front of the caar
+            Vector3 currentPositionCar = GameObject.FindGameObjectWithTag("car").transform.position;
+            Vector3 currentPosition = walker.transform.position;
+            walker.transform.position = new Vector3(currentPosition.x, currentPosition.y, currentPositionCar.z+10);
+            Vector3 currentPosition1 = walker1.transform.position;
+            walker1.transform.position = new Vector3(currentPosition1.x, currentPosition1.y, currentPositionCar.z+10);
+            Vector3 currentPosition2 = walker2.transform.position;
+            walker2.transform.position = new Vector3(currentPosition2.x, currentPosition2.y, currentPositionCar.z+10);
+            Vector3 currentPosition3 = walker3.transform.position;
+            walker3.transform.position = new Vector3(currentPosition3.x, currentPosition3.y, currentPositionCar.z+10);
+            Vector3 currentPosition4 = walker4.transform.position;
+            walker4.transform.position = new Vector3(currentPosition4.x, currentPosition4.y, currentPositionCar.z+10);
+            //make walkers visible
+            walker.GetComponent<Renderer>().enabled = true;
+            walker1.GetComponent<Renderer>().enabled = true;
+            walker2.GetComponent<Renderer>().enabled = true;
+            walker3.GetComponent<Renderer>().enabled = true;
+            walker4.GetComponent<Renderer>().enabled = true;
         }
     }
 
