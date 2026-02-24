@@ -33,10 +33,16 @@ public class EndlessRoad : MonoBehaviour
     public float pauseAtTime = 40f;
     private bool isPaused = false;
 
+    //AUDIO BARS
+    public Transform audioBarTransform;
+
+
     void Start()
     {
         carTransform = GameObject.FindGameObjectWithTag("car").transform;
         int prefabIndex = 0;
+
+        audioBarTransform = GameObject.FindGameObjectWithTag("bars").transform;
 
         //selecting from a group of road sections
         for (int i = 0; i < allSections.Length; i++)
@@ -116,6 +122,7 @@ public class EndlessRoad : MonoBehaviour
         
         if (!isPaused) {
             carTransform.Translate(Vector3.forward * moveSpeed * Time.deltaTime); //move car forward
+            audioBarTransform.position = new Vector3(carTransform.position.x - 3.5f, carTransform.position.y + 0.1f, carTransform.position.z + 7); //move audio with cars
 
             audioSource.GetSpectrumData(spectrumData, 0, fftWindow);
             int blockSize = Mathf.Max(1, spectrumData.Length / buildings.Length / (int)freqFocusWindow);        
