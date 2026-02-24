@@ -81,7 +81,7 @@ public class AudioSpectrumPlot : MonoBehaviour
                 if(timer > 41 && timer < 45f)
                 {
                     sampleBin[i].SetActive(true);
-                    sampleBin[i].transform.localPosition = new Vector3(i * 1.2f, 0f, 7f);
+                    sampleBin[i].transform.localPosition = new Vector3(i * 0.02f, 0.02f, 7f);
                     sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, 0.1f);
                 }
 
