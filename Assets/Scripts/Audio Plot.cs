@@ -74,19 +74,21 @@ public class AudioSpectrumPlot : MonoBehaviour
         
         for (int i = 0; i < maxBin; i++)
         {
-            targetPos[i] = new Vector3(i * 1f, carTransform.position.y, carTransform.position.z);
+            targetPos[i] = new Vector3(i * 1f, 1f, 0f);
             if (sampleBin != null)
             {
                 
                 if(timer > 41 && timer < 45f)
                 {
                     sampleBin[i].SetActive(true);
+                    sampleBin[i].transform.localPosition = new Vector3(i * 1.2f, 0f, 7f);
                     sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, 0.1f);
                 }
 
                 if(timer > 45f && timer < 47f)
                 {
                     sampleBin[i].SetActive(true);
+                    sampleBin[i].transform.localPosition = new Vector3(i * .02f, 0f, 7f);
                     sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale);
                 }
 
@@ -94,28 +96,28 @@ public class AudioSpectrumPlot : MonoBehaviour
                 {
                     sampleBin[i].SetActive(true);
                     sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale);
-                    sampleBin[i].transform.position = Vector3.Lerp(sampleBin[i].transform.position, targetPos[i], Time.deltaTime * 2f);
+                    sampleBin[i].transform.localPosition = Vector3.Lerp(sampleBin[i].transform.localPosition, targetPos[i], Time.deltaTime * 2f);
                 }
 
                 if (timer > 49f && timer < 51f)
                 {
                     sampleBin[i].SetActive(true);
                     sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale);
-                    sampleBin[i].transform.position = Vector3.Lerp(sampleBin[i].transform.position, - targetPos[i], Time.deltaTime * 2f);
+                    sampleBin[i].transform.localPosition = Vector3.Lerp(sampleBin[i].transform.localPosition, - targetPos[i], Time.deltaTime * 2f);
                 }
 
                 if (timer > 51f && timer < 53f)
                 {
                     sampleBin[i].SetActive(true);
                     sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale);
-                    sampleBin[i].transform.position = Vector3.Lerp(sampleBin[i].transform.position, targetPos[i] / 2, Time.deltaTime * 2f);
+                    sampleBin[i].transform.localPosition = Vector3.Lerp(sampleBin[i].transform.localPosition, targetPos[i] / 2, Time.deltaTime * 2f);
                 }
 
                 if (timer > 53f)
                 {
                     sampleBin[i].SetActive(true);
                     sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale);
-                    sampleBin[i].transform.position = Vector3.Lerp(sampleBin[i].transform.position, targetPos[i] - targetPos[i], Time.deltaTime * 2f);
+                    sampleBin[i].transform.localPosition = Vector3.Lerp(sampleBin[i].transform.localPosition, targetPos[i] - targetPos[i], Time.deltaTime * 2f);
                 }
 
                 if (timer > 53f && !spawned)
@@ -167,7 +169,8 @@ public class AudioSpectrumPlot : MonoBehaviour
         for (int i = 0; i < 8; i++)
             {
                 crosswalks[i] = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                crosswalks[i].transform.position = new Vector3(i * 1.2f, 0, 0);
+                crosswalks[i].transform.SetParent(this.transform);
+             crosswalks[i].transform.localPosition = new Vector3(i * 1.2f, 0, 0);
                 crosswalks[i].transform.localScale = new Vector3(0.5f, .2f, 4f);
 
             color = Color.HSVToRGB(Mathf.Abs(0.0f + (float)i / 1000f), 0, 1 + i / 500f); // No saturation, full brightness (white)
