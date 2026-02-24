@@ -27,10 +27,10 @@ public class EndlessRoad : MonoBehaviour
     public bool useDecibels;
     public float[] spectrumData;
 
-    public float spacing = 10000f;
-    public float sectionLengthBuildings = 5000f;
-    const float sectionLength = 20;
-    public float pauseAtTime = 39f;
+    public float spacing;
+    public float sectionLengthBuildings;
+    const float sectionLength = 39f;
+    public float pauseAtTime = 40f;
     private bool isPaused = false;
 
     void Start()
@@ -55,7 +55,7 @@ public class EndlessRoad : MonoBehaviour
         for (int i = 0; i < sections.Length; i++)
         {
             GameObject randSection = GetRandomSection();
-            randSection.transform.position = new Vector3(allSections[i].transform.position.x, 0, i * sectionLength);
+            randSection.transform.position = new Vector3(0, 0, i * sectionLength);   //allSections[i].transform.position.x
             randSection.SetActive(true);
             sections[i] = randSection;
         }
@@ -69,7 +69,7 @@ public class EndlessRoad : MonoBehaviour
         buildings = new GameObject[nBuildings];
         sectionLengthBuildings = buildingPrefabs[0].GetComponent<Renderer>().bounds.size.z;
 
-        float spacing = sectionLengthBuildings * 3;
+        float spacing = sectionLengthBuildings * 2;
 
         buildings = new GameObject[nBuildings];
 
@@ -77,9 +77,14 @@ public class EndlessRoad : MonoBehaviour
         {
             GameObject prefab = buildingPrefabs[Random.Range(0, buildingPrefabs.Length)];
 
-            Vector3 pos = new Vector3(25f, 0f, i * spacing);
+            float side = (i % 2 == 0) ? 20f : -20f;
+
+            Vector3 pos = new Vector3(side, 0f, i * spacing);
+            
             buildings[i] = Instantiate(prefab, pos, Quaternion.identity);
-            buildings[i].transform.Rotate(0f, 270f, 0f, Space.World); //rotate to face the road
+
+            float rotation = (i % 2 == 0) ? 270f : 90f;
+            buildings[i].transform.Rotate(0f, rotation, 0f, Space.World); //rotate to face the road
         }
     }
 
@@ -101,10 +106,14 @@ public class EndlessRoad : MonoBehaviour
     void Update()
     {
         Debug.Log(audioSource.time);
-        if (audioSource.time >= pauseAtTime)
+        if (audioSource.time >= pauseAtTime && audioSource.time <= 71)
         {
             isPaused = true;
+        } else
+        {
+            isPaused = false;
         }
+        
         if (!isPaused) {
             carTransform.Translate(Vector3.forward * moveSpeed * Time.deltaTime); //move car forward
 
@@ -171,7 +180,7 @@ public class EndlessRoad : MonoBehaviour
                 Vector3 lastSectionPosition = sections[i].transform.position;
                 sections[i].SetActive(false);
                 sections[i] = GetRandomSection();
-                sections[i].transform.position = new Vector3(lastSectionPosition.x, 0, lastSectionPosition.z + sectionLength * sections.Length);
+                sections[i].transform.position = new Vector3(0, 0, lastSectionPosition.z + sectionLength * sections.Length);    //lastSectionPosition.x
                 sections[i].SetActive(true);
             }
         }
