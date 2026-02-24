@@ -74,53 +74,53 @@ public class AudioSpectrumPlot : MonoBehaviour
         
         for (int i = 0; i < maxBin; i++)
         {
-            targetPos[i] = new Vector3(i * 1f, 1f, 0f);
+            targetPos[i] = new Vector3(i * .5f, 1f, 0f);
             if (sampleBin != null)
             {
                 
-                if(timer > 41 && timer < 45f)
+                if(timer > 41 && timer < 43f)
                 {
                     sampleBin[i].SetActive(true);
                     sampleBin[i].transform.localPosition = new Vector3(i * 0.02f, 0.02f, 7f);
                     sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, 0.1f);
                 }
 
-                if(timer > 45f && timer < 47f)
+                if(timer > 43f && timer < 44f)
                 {
                     sampleBin[i].SetActive(true);
                     sampleBin[i].transform.localPosition = new Vector3(i * .02f, 0f, 7f);
                     sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale);
                 }
 
-                if(timer > 47f && timer < 49f)
-                {
-                    sampleBin[i].SetActive(true);
-                    sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale);
-                    sampleBin[i].transform.localPosition = Vector3.Lerp(sampleBin[i].transform.localPosition, targetPos[i], Time.deltaTime * 2f);
-                }
-
-                if (timer > 49f && timer < 51f)
-                {
-                    sampleBin[i].SetActive(true);
-                    sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale);
-                    sampleBin[i].transform.localPosition = Vector3.Lerp(sampleBin[i].transform.localPosition, - targetPos[i], Time.deltaTime * 2f);
-                }
-
-                if (timer > 51f && timer < 53f)
+                if(timer > 44f && timer < 46f)
                 {
                     sampleBin[i].SetActive(true);
                     sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale);
                     sampleBin[i].transform.localPosition = Vector3.Lerp(sampleBin[i].transform.localPosition, targetPos[i] / 2, Time.deltaTime * 2f);
                 }
 
-                if (timer > 53f)
+                if (timer > 46f && timer < 48f)
+                {
+                    sampleBin[i].SetActive(true);
+                    sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale);
+                    sampleBin[i].transform.localPosition = Vector3.Lerp(sampleBin[i].transform.localPosition, - targetPos[i] / 2, Time.deltaTime * 2f);
+                }
+
+                if (timer > 48f && timer < 50f)
+                {
+                    sampleBin[i].SetActive(true);
+                    sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale);
+                    sampleBin[i].transform.localPosition = Vector3.Lerp(sampleBin[i].transform.localPosition, targetPos[i] / 2, Time.deltaTime * 2f);
+                }
+
+                if (timer > 50f)
                 {
                     sampleBin[i].SetActive(true);
                     sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale);
                     sampleBin[i].transform.localPosition = Vector3.Lerp(sampleBin[i].transform.localPosition, targetPos[i] - targetPos[i], Time.deltaTime * 2f);
                 }
 
-                if (timer > 53f && !spawned)
+                if (timer > 50f && !spawned)
                 {
                     crosswalkSingle.SetActive(true);
                     sampleBin[i].SetActive(false);
