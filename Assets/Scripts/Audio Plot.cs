@@ -1,6 +1,7 @@
 // Unity Audio Spectrum Plot Example
 // IMDM Class Material 
 // Author: Myungin Lee
+// Edited by: Emily Alt
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -141,11 +142,11 @@ public class AudioSpectrumPlot : MonoBehaviour
                 if (timer > 48f && timer < 51f)
                 {
                     sampleBin[i].SetActive(true);
-                    sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale);
+                    sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale );
                     sampleBin[i].transform.localPosition = Vector3.Lerp(sampleBin[i].transform.localPosition, zeroPos[i], Time.deltaTime * 2f);
                 }
 
-                if (timer > 51f)
+                if (timer > 50f)
                 {
                     sampleBin[i].SetActive(false);
                 }
