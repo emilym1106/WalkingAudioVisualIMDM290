@@ -31,7 +31,9 @@ public class EndlessRoad : MonoBehaviour
     public float sectionLengthBuildings;
     const float sectionLength = 39f;
     public float pauseAtTime = 40f;
+    public float climaxTime = 51f;
     private bool isPaused = false;
+    private bool climax = false;
 
     //AUDIO BARS
     public Transform audioBarTransform;
@@ -125,6 +127,15 @@ public class EndlessRoad : MonoBehaviour
         {
             isPaused = false;
         }
+
+        if (audioSource.time >= climaxTime && audioSource.time <= 71)
+        {
+            climax = true;
+        }
+        else
+        {
+            climax = false;
+        }
         
         if (!isPaused) {
             //make walkers invisible
@@ -160,7 +171,7 @@ public class EndlessRoad : MonoBehaviour
             }
 
             RecycleBuildings();
-        }else
+        }else if (climax)
         {
             //position walkers in front of the caar
             Vector3 currentPositionCar = GameObject.FindGameObjectWithTag("car").transform.position;

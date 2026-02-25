@@ -84,7 +84,7 @@ public class AudioSpectrumPlot : MonoBehaviour
             StartCoroutine(SpawnShapes());
         }
 
-        if (timer > 60f && spawned && !despawned)
+        if (timer > 72f && spawned && !despawned)
         {
             despawned = true;
 
@@ -141,7 +141,7 @@ public class AudioSpectrumPlot : MonoBehaviour
                 if (timer > 48f && timer < 51f)
                 {
                     sampleBin[i].SetActive(true);
-                    sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale * scale);
+                    sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale);
                     sampleBin[i].transform.localPosition = Vector3.Lerp(sampleBin[i].transform.localPosition, zeroPos[i], Time.deltaTime * 2f);
                 }
 
