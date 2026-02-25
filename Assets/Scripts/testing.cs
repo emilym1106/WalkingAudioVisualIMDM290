@@ -1,6 +1,3 @@
-// Unity Audio Spectrum Plot Example
-// IMDM Class Material 
-// Author: Myungin Lee
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,11 +5,11 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Color = UnityEngine.Color;
 
-public class AudioSpectrumPlot : MonoBehaviour
+public class testing : MonoBehaviour
 {
     // Scale the plot
     [Range(1f, 100f)]
-    public float scale = 20;
+    public float scale = 10;
 
     //capping the plot
     [Range(0f, 20000f)]
@@ -28,7 +25,7 @@ public class AudioSpectrumPlot : MonoBehaviour
     Vector3[] negTargetPos;
     Vector3[] zeroPos;
 
-
+ 
     GameObject[] crosswalks = new GameObject[8];
 
     public Transform carTransform;
@@ -51,7 +48,7 @@ public class AudioSpectrumPlot : MonoBehaviour
         {   // Create GO and initial position
             sampleBin[i] = GameObject.CreatePrimitive(PrimitiveType.Cube);
             sampleBin[i].transform.SetParent(this.transform); // make them children of the bars object
-            sampleBin[i].transform.localPosition = new Vector3(i * 0.02f, 0.02f, 7f);
+            sampleBin[i].transform.localPosition = new Vector3(i * 0.1f, 0.02f, 7f);
             //sampleBin[i].transform.position = new Vector3(i * .02f, 0, 0);
             sampleBin[i].transform.Rotate(90, 0, 0);
             //sampleBin[i].transform.Rotate(Random.Range(-180f, 180f), Random.Range(-180f, 180f), Random.Range(-180f, 180f));
@@ -64,9 +61,9 @@ public class AudioSpectrumPlot : MonoBehaviour
         zeroPos = new Vector3[maxBin];
         for (int i = 0; i < maxBin; i++)
         {
-            targetPos[i] = new Vector3(i * .2f, 1f, 5f);
-            negTargetPos[i] = new Vector3(i * -.2f, 1f, 5f);
-            zeroPos[i] = new Vector3(0, 0, 5f);
+            targetPos[i] = new Vector3(i * .5f, 1f, 7f);
+            negTargetPos[i] = new Vector3(i * -.5f, 1f, 7f);
+            zeroPos[i] = new Vector3(0, 0, 7f);
         }
 
 
@@ -76,81 +73,81 @@ public class AudioSpectrumPlot : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-
-        if (timer > 51f && !spawned)
+       
+        if (timer > 16f && !spawned)
         {
             spawned = true;
-
+            
             StartCoroutine(SpawnShapes());
         }
 
-        if (timer > 60f && spawned && !despawned)
+        if (timer > 20f && spawned && !despawned)
         {
             despawned = true;
-
+            
             StartCoroutine(DespawnShapes());
         }
 
         for (int i = 0; i < maxBin; i++)
         {
-            targetPos[i] = new Vector3(i * .04f, 0.2f, 5f);
-            negTargetPos[i] = new Vector3(i * -.04f, 0.2f, 5f);
-            zeroPos[i] = new Vector3(0, 0.2f, 5f);
+            targetPos[i] = new Vector3(i * .5f, 0, 7f);
+            negTargetPos[i] = new Vector3(i * -.5f, 0, 7f);
+            zeroPos[i] = new Vector3(0, 0, 7f);
 
-
+           
 
             if (sampleBin != null)
             {
                 //audio bars/crosswalk reacting based on the time
                 //the car stops at 42, marking the start of the rising action, then the crosswalk should be placed and done animating by the climax
-                if (timer > 40 && timer < 41f)
+                if (timer > 40 && timer < 43f)
                 {
                     sampleBin[i].SetActive(true);
-                    sampleBin[i].transform.localPosition = new Vector3(i * 0.02f, 0.02f, 5f);
+                    sampleBin[i].transform.localPosition = new Vector3(i * 0.1f, 0.02f, 7f);
                     sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, 0.1f);
                 }
 
-                if (timer > 41f && timer < 42f)
+                if (timer > 43f && timer < 45f)
                 {
                     sampleBin[i].SetActive(true);
-                    sampleBin[i].transform.localPosition = new Vector3(i * 0.02f, 0.02f, 5f);
-                    sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale * scale);
+                    sampleBin[i].transform.localPosition = new Vector3(i * 0.1f, 0.02f, 7f);
+                    sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale);
                 }
 
-                if (timer > 42f && timer < 44f)
+                if (timer > 45f && timer < 47f)
                 {
                     sampleBin[i].SetActive(true);
-                    sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale * scale);
+                    sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale);
                     sampleBin[i].transform.localPosition = Vector3.Lerp(sampleBin[i].transform.localPosition, targetPos[i], Time.deltaTime * 2f);
                 }
 
-                if (timer > 44f && timer < 46f)
+                if (timer > 47f && timer < 49f)
                 {
                     sampleBin[i].SetActive(true);
-                    sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale * scale);
+                    sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale);
                     sampleBin[i].transform.localPosition = Vector3.Lerp(sampleBin[i].transform.localPosition, negTargetPos[i], Time.deltaTime * 2f);
                 }
 
-                if (timer > 46f && timer < 48f)
+                if (timer > 49f && timer < 51f)
                 {
                     sampleBin[i].SetActive(true);
-                    sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale * scale);
+                    sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale);
                     sampleBin[i].transform.localPosition = Vector3.Lerp(sampleBin[i].transform.localPosition, targetPos[i], Time.deltaTime * 2f);
                 }
 
-                if (timer > 48f && timer < 51f)
+                if (timer > 51f && timer < 53f)
                 {
                     sampleBin[i].SetActive(true);
-                    sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale * scale);
+                    sampleBin[i].transform.localScale = new Vector3(0.1f, AudioSpectrum.samples[i] * scale * scale, AudioSpectrum.samples[i] * scale);
                     sampleBin[i].transform.localPosition = Vector3.Lerp(sampleBin[i].transform.localPosition, zeroPos[i], Time.deltaTime * 2f);
                 }
 
-                if (timer > 51f)
+                if (timer > 53f)
                 {
                     sampleBin[i].SetActive(false);
                 }
 
-
+                
 
 
 

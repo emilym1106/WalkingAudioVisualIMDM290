@@ -7494,9 +7494,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01d1949ad22587e41920c1892ab91303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioSpectrumPlot
-  scale: 10
+  scale: 15
   maxFrequency: 5000
-  crosswalkSingle: {fileID: 1392948374}
   carTransform: {fileID: 975050158}
 --- !u!114 &763202965
 MonoBehaviour:
